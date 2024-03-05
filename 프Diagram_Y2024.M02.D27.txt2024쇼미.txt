@@ -1,0 +1,70 @@
+﻿int x = 0
+String flag = " "
+float s = 0.24
+float t = 0.00
+
+void setup()
+{
+	NSBegin(8, 3)
+	NSClear()
+	LcdBackLight()
+	LcdPrint("Press yellow")
+	LcdSetCursor(0, 1)
+	LcdPrint("button!!")
+}
+void loop()
+{
+	x = random(3000,7500) //1초부터 7.5초
+	a0 = AnalogRead(0)
+	if(a0 >= 330 && a0 <= 350) //노란색
+	{
+		s = 0.24
+		t = 0.00
+		NSSetAllColor(0, 0, 0)
+		NSShow()
+		LcdHome()
+		LcdClear()
+		LcdPrint("reset")
+		Delay(2000)
+		LcdClear()
+		LcdPrint("Press the red")
+		LcdSetCursor(0, 1)
+		LcdPrint("button and then")
+		Delay(3000)
+		LcdClear()
+		LcdHome()
+		LcdPrint("press the")
+		LcdSetCursor(0, 1)
+		LcdPrint("green button")
+		Delay(2000)
+	}
+	elseif(a0 >= 507 && a0 <= 517)
+	{
+		if(flag == "on")
+		{
+			flag = "green"
+			LcdPrint("record          ")
+			LcdSetCursor(0, 1)
+			LcdPrint(s)
+			LcdPrint("             ")
+			NSClear()
+			NSSetAllColor(0, 0, 0)
+			Delay(5000)
+		}
+	}
+	elseif(a0 >= 860 && a0 <= 875) //빨간버튼 시작
+	{
+		flag = "red"
+		LcdClear()
+		NSClear()
+		NSSetAllColor(100, 0, 0)
+		NSShow()
+		Delay(x)	
+		NSSetAllColor(0,100,0)	
+		NSShow()
+		NSClear()
+		flag = "on"
+	}
+	Delay(100)
+	s = s + 0.01
+}
